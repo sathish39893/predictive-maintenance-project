@@ -13,6 +13,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report, recall_score
 # for model serialization
 import joblib
+import mlflow
 
 
 # Define constants for the dataset and output paths
