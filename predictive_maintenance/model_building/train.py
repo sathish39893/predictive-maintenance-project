@@ -1,7 +1,9 @@
 import pandas as pd
 import sklearn
 import os
-from huggingface_hub import login, HfApi
+# for hugging face upload and download
+from huggingface_hub import login, HfApi, create_repo
+from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 # for data preprocessing and pipeline creation
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -15,6 +17,8 @@ from sklearn.metrics import accuracy_score, classification_report, recall_score
 import joblib
 import mlflow
 
+mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_experiment("Predictive_Maintenance_experiment-1")
 
 # Define constants for the dataset and output paths
 api = HfApi(token=os.getenv("HF_TOKEN"))
@@ -142,7 +146,7 @@ with mlflow.start_run():
         create_repo(repo_id=repo_id, repo_type=repo_type, private=False)
         print(f"Space '{repo_id}' created.")
 
-    # create_repo("predictive-maintenance", repo_type="model", private=False)
+    # Upload the model file to the Hugging Face space
     api.upload_file(
         path_or_fileobj="best_predictive_maintenance_model_v1.joblib",
         path_in_repo="best_predictive_maintenance_model_v1.joblib",
