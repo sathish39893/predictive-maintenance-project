@@ -1,6 +1,7 @@
 import pandas as pd
 import sklearn
 import os
+from huggingface_hub import login, HfApi
 # for data preprocessing and pipeline creation
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
