@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from huggingface_hub import login, HfApi
 from sklearn.model_selection import train_test_split
 
@@ -42,10 +43,14 @@ ytest.to_csv("ytest.csv",index=False)
 
 files = ["Xtrain.csv","Xtest.csv","ytrain.csv","ytest.csv"]
 
+# Upload to Hugging Face
+repo_id = "sathish39893/predictive-maintenance"
+repo_type = "model"
+
 for file_path in files:
     api.upload_file(
         path_or_fileobj=file_path,
         path_in_repo=file_path.split("/")[-1],  # just the filename
         repo_id=repo_id,
-        repo_type="dataset",
+        repo_type=repo_type,
     )
